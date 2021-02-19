@@ -12,8 +12,6 @@ connectDB();
 
 app.use(express.json({extended:false}));
 
-
-
 // Define api routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/messages', require('./routes/messages'));
