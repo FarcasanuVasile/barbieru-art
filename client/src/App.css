@@ -1,0 +1,32 @@
+html,
+body,
+#root,
+.App,
+.box {
+  height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #666;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+iframe {
+  max-width: 100%;
+}
+.banner {
+  background-repeat: no-repeat;
+  background-image: url(media/banner.jpg);
+  min-height: 550px;
+  background-position: 104% 50%;
+  background-size: contain;
+}
+@media only screen and (max-width: 767px) {
+  .banner {
+    min-height: auto;
+  }
+}

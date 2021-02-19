@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://titi:Primetech123@barbieruart.ixjwh.mongodb.net/BarbieruArt?retryWrites=true&w=majority",
+    "jwtSecret":"jwtSecretBA"
+}
