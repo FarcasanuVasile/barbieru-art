@@ -35,7 +35,21 @@ const Navbar = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
             </li>
-            
+            <li className="nav-item"><span className="nav-link">
+          Salut {user && user.name}
+          </span>
+        </li>
+        <li className="nav-item">
+                <Link className="nav-link" to="/admin-panel">Admin</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/admin-panel/messages">Messages</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/chantiers">Chantiers</Link>
+            </li>
+        <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i><span className="d-none d-sm-inline">Déconnection</span></a> </li>
+        
             <li className="nav-item">
                 <Link className="nav-link" to="/creer-un-compte">S'Inscrire</Link>
             </li>
@@ -52,7 +66,8 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
           <ul className="navbar-nav">
-              {isAuthenticated ? authLinks : guestLinks}            
+              {/* {isAuthenticated ? authLinks : guestLinks}             */}
+              {guestLinks}
           </ul>
         </div>
       </nav>

@@ -31,22 +31,37 @@ const Contact = () => {
     const onChange = e => setMessage({ ...message, [e.target.name]:e.target.value  });
     const onSubmit = e => {
         e.preventDefault();
-        if(current === null){
-            addMessage(message);
-            setAlert('Message envoyé!','success');
-        }else{
+        if( email=='' && body=='' ){
+            setAlert('Email et message champs sont obligatoires','warning');
+            setAlert('Votre message a pas été envoyé','danger');
+        }
+        else if( body.length < 20 ){
+            setAlert('Votre mesasge doit etre plus long de 20 caractères','warning');
+            setAlert('Votre message a pas été envoyé','danger');
+        }
+        else if(current !== null ){
             updateMessage(message);
             setAlert('Message modifié!','success');
             history.push('/admin-panel/messages');
             onClearCurrent();
+            setMessage({
+                name:'',
+                email:'',
+                phone:'',
+                body:''
+            });
+        }else{
+            addMessage(message);
+            setAlert('Message envoyé!','success');
+            setMessage({
+                name:'',
+                email:'',
+                phone:'',
+                body:''
+            });
         }
         
-        setMessage({
-            name:'',
-            email:'',
-            phone:'',
-            body:''
-        });
+        
     }
     const onClearCurrent = () =>{
         if(current){

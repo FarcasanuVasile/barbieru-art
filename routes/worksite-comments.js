@@ -22,12 +22,11 @@ router.get('/', async (req,res) => {
 // @desc      Add new work site
 // @access    Private 
 
-router.post('/',[auth,
+router.post('/',
         [
             check('name','Name is required').not().isEmpty(),
             check('body','Message is required').not().isEmpty()
-        ]
-    ], async (req,res) => {
+        ], async (req,res) => {
         const errors = validationResult(req);       
         if(!errors.isEmpty()){
             return res.status(400).json({errors:errors.array()});

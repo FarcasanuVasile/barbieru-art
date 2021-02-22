@@ -10,6 +10,9 @@ import Register from '../auth/Register';
 import Contact from '../pages/Contact';
 import Home from '../pages/Home';
 import PrivateRoute from '../routing/PrivateRoute';
+import WorkSiteForm from '../work-sites/WorkSiteForm';
+import WorkSites from '../work-sites/WorkSites';
+import WorkSiteDetails from '../work-sites/WorkSiteDetails';
 
 export const Routes = () => {
     const authContext = useContext(AuthContext);
@@ -24,7 +27,10 @@ export const Routes = () => {
                 <Route exact path="/connexion/" component={Login}/>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/contact" component={Contact}/>
+                <Route exact path="/chantiers" component={WorkSites}/>
+                <Route exact path="/chantier/:id" component={WorkSiteDetails}/>
                 <Route exact path="/admin-panel/messages/edit" component={Contact}/>
+                <PrivateRoute exact path="/chantiers/ajouter-un-chantier" component={WorkSiteForm}/>
                 <PrivateRoute exact path="/admin-panel/messages" component={Messages}/>
                 <PrivateRoute exact path="/admin-panel" component={AdminPanel}/>
                 

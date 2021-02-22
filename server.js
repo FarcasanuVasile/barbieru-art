@@ -1,7 +1,8 @@
- const express = require('express');
+const express = require('express');
 const connectDB = require('./config/db');
-const path = require('path');
+const fileUpload = require('express-fileupload');
 
+const path = require('path');
 const app = express();
 
 // Connect Database
@@ -12,8 +13,13 @@ connectDB();
 
 app.use(express.json({extended:false}));
 
+// Init FileUpload
+
+app.use(fileUpload());
+
 // Define api routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/upload',require('./routes/upload'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/work-sites', require('./routes/work-sites'));

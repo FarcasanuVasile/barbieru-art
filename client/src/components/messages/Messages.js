@@ -1,4 +1,4 @@
-import React, {useContext,Fragment, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import MessageContext from '../../context/message/messageContext';
 import MessageFilter from './MessageFilter';
 import MessageItem from './MessageItem';
@@ -13,7 +13,7 @@ const Messages = () =>{
         return( 
         <div>
             <h2 className="px-3 mb-4">Votre messages</h2>
-        <h5>Il n'y a pas de messages.</h5>
+            <h5>Il n'y a pas de messages.</h5>
         </div>
         )
     }

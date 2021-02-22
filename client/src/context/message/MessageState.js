@@ -2,7 +2,17 @@ import React, {useReducer} from 'react';
 import axios from 'axios';
 import MessageContext from './messageContext';
 import messageReducer from './messageReducer';
-import { ADD_MESSAGE,DELETE_MESSAGE,SET_CURRENT,CLEAR_CURRENT,UPDATE_MESSAGE,CLEAR_FILTER,FILTER_MESSAGES,MESSAGE_ERROR,GET_MESSAGES,CLEAR_MESSAGES } from '../types';
+import { 
+    ADD_MESSAGE,
+    DELETE_MESSAGE,
+    SET_CURRENT,
+    CLEAR_CURRENT,
+    UPDATE_MESSAGE,
+    CLEAR_FILTER,
+    FILTER_MESSAGES,
+    MESSAGE_ERROR,
+    GET_MESSAGES,
+    CLEAR_MESSAGES } from '../types';
 
 const MessageState = props => {
     const initialState = {
@@ -33,7 +43,6 @@ const MessageState = props => {
             
             dispatch({ type: ADD_MESSAGE,payload:res.data });
         } catch (error) {
-            
             dispatch({type:MESSAGE_ERROR,payload:error.response.msg})
         }
     }
