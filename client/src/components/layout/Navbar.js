@@ -1,15 +1,19 @@
-import React, { Fragment,useContext } from 'react';
+import React, { Fragment,useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 import MessageContext from '../../context/message/messageContext'
 const Navbar = () => {
     const authContext = useContext(AuthContext);
+    const [collapse,setCollapse]= useState(false);
     const messageContext = useContext(MessageContext);
     const { clearMessages } = messageContext;
     const { user,isAuthenticated,logout } = authContext;
     const onLogout = () => {
       logout();
       clearMessages();
+    }
+    const onOpen = () =>{
+      setCollapse(!collapse);
     }
     const authLinks = (
       <Fragment>
@@ -29,17 +33,17 @@ const Navbar = () => {
     );
     const guestLinks = (
       <Fragment>
-        <li className="nav-item active">
+        {user && <li className="nav-item"><span className="nav-link">
+                Salut { user.name}
+                </span>
+            </li>}
+        <li className="nav-item ">
                 <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
             </li>
-            <li className="nav-item"><span className="nav-link">
-          Salut {user && user.name}
-          </span>
-        </li>
-        <li className="nav-item">
+            <li className="nav-item">
                 <Link className="nav-link" to="/admin-panel">Admin</Link>
             </li>
             <li className="nav-item">
@@ -48,7 +52,6 @@ const Navbar = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/chantiers">Chantiers</Link>
             </li>
-        <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i><span className="d-none d-sm-inline">Déconnection</span></a> </li>
         
             <li className="nav-item">
                 <Link className="nav-link" to="/creer-un-compte">S'Inscrire</Link>
@@ -56,6 +59,7 @@ const Navbar = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/connexion">Connexion</Link>
             </li>
+            <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i><span className="d-none d-sm-inline">Déconnection</span></a> </li>
       </Fragment>
     )
     return (

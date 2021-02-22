@@ -61,7 +61,7 @@ const WorkSiteDetails = () => {
                 {comments.length > 0 && comments.map(comment => 
                     <div key={uuidv4()}  className="list-group-item mb-2 list-group-item-action flex-column align-items-start">
                     <div className="d-flex w-100 justify-content-between">
-                    <p className="mb-1">{comment.name}</p>
+                    <p className="mb-1 font-weight-bold">{comment.name}</p>
                     <small>{ comment.date && comment.date.slice(0,10)}</small>
                     </div>
                     <em className="mb-1">{comment.body}</em>
