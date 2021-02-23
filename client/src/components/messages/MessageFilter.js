@@ -22,7 +22,7 @@ const MessageFilter = () =>{
     }   
     return (
         <form onSubmit={onSubmit}>
-            <input ref={text} type="text" className="form-control" onChange={onChange} placeholder="Recherce..."/>
+            <input ref={text} type="text" className="form-control rounded-pill px-4" onChange={onChange} placeholder="Recherce..."/>
         </form>
     )
 }

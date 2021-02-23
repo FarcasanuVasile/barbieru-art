@@ -1,14 +1,27 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import WorkSiteContext from '../../context/worksite/workSiteContext';
-const WorkSiteItem = (props) => {
+import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
+const WorkSiteItem = ({workSite}) => {
+    const alertContext = useContext(AlertContext);
+    const authContext = useContext(AuthContext);
     const workSiteContext = useContext(WorkSiteContext);
-    const { setCurrent } = workSiteContext;
-    const { _id,name,description,date } = props.workSite;
+    const { setAlert } = alertContext;
+    const { isAuthenticated } = authContext;
+    const { setCurrent,deleteWorkSite } = workSiteContext;
+    const { _id,name,description,date } = workSite;
 
     const onSetCurrent = () =>{
-        setCurrent(props.workSite);
+        setCurrent(workSite);
     }
+    const onDelete = () =>{
+        if(window.confirm('Vous etes sur?')){
+            deleteWorkSite(_id);
+            setAlert('Chantier supprimé!','warning')
+        }
+    }
+    
     return (
 
         <div>    
@@ -16,9 +29,14 @@ const WorkSiteItem = (props) => {
     
     <div className="d-flex w-100 justify-content-between">
       <h5 className="mb-1">{name}</h5>
+      <div>
       <small>{date.slice(0,10)}</small>
+      { isAuthenticated && <span  className="ml-1  delete-button" onClick={onDelete}>
+                            <i className="fa fa-trash"></i>
+        </span>}
+      </div>
     </div>
-    <p className="mb-1">{description}</p>
+    <div className="mb-1" dangerouslySetInnerHTML={{__html:description}}></div>
     
     </Link>
         </div>

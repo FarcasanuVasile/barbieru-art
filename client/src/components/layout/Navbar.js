@@ -12,8 +12,10 @@ const Navbar = () => {
       logout();
       clearMessages();
     }
-    const onOpen = () =>{
-      setCollapse(!collapse);
+    const onClose = (e) =>{
+      if(e.currentTarget.classList.contains('show')){
+        e.currentTarget.classList.remove('show');
+      }
     }
     const authLinks = (
       <Fragment>
@@ -33,11 +35,11 @@ const Navbar = () => {
     );
     const guestLinks = (
       <Fragment>
-        {user && <li className="nav-item"><span className="nav-link">
-                Salut { user.name}
+        {/* {user && <li className="nav-item"><span className="nav-link">
+                Bon jour { user.name}!
                 </span>
-            </li>}
-        <li className="nav-item ">
+            </li>} */}
+            <li className="nav-item ">
                 <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
@@ -52,23 +54,22 @@ const Navbar = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/chantiers">Chantiers</Link>
             </li>
-        
             <li className="nav-item">
                 <Link className="nav-link" to="/creer-un-compte">S'Inscrire</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/connexion">Connexion</Link>
             </li>
-            <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i><span className="d-none d-sm-inline">Déconnection</span></a> </li>
+            <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i>Déconnection</a> </li>
       </Fragment>
     )
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
         <Link to="/" className="navbar-brand" ><h1>BARBIERU ART</h1></Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button  className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
+        <div onClick={onClose} className="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
           <ul className="navbar-nav">
               {/* {isAuthenticated ? authLinks : guestLinks}             */}
               {guestLinks}

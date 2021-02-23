@@ -23,13 +23,14 @@ export const Routes = () => {
     return (
         <div>
             <Switch>
-                <Route exact path="/creer-un-compte" component={Register}/>
-                <Route exact path="/connexion/" component={Login}/>
                 <Route exact path="/" component={Home}/>
+                <Route exact path="/connexion/" component={Login}/>
+                <Route exact path="/creer-un-compte" component={Register}/>
                 <Route exact path="/contact" component={Contact}/>
+                <Route exact path="/admin-panel/messages/edit" component={Contact}/>
                 <Route exact path="/chantiers" component={WorkSites}/>
                 <Route exact path="/chantier/:id" component={WorkSiteDetails}/>
-                <Route exact path="/admin-panel/messages/edit" component={Contact}/>
+                <PrivateRoute exact path="/chantier/:id/modifier" component={WorkSiteForm}/>
                 <PrivateRoute exact path="/chantiers/ajouter-un-chantier" component={WorkSiteForm}/>
                 <PrivateRoute exact path="/admin-panel/messages" component={Messages}/>
                 <PrivateRoute exact path="/admin-panel" component={AdminPanel}/>

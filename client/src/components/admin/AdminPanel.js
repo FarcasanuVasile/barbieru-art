@@ -15,7 +15,7 @@ const AdminPanel = () =>{
     return <div>
         <div className="row">
             <div className="col-md-12">
-            <p className="display-4 pb-4 d-block">Salut {user && user.name}</p>
+            <p className="display-4 pb-4 d-block">Bon jour {user && user.name}</p>
             </div>
         </div>
         <div className="row">

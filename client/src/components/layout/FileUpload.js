@@ -29,6 +29,7 @@ const FileUpload = () => {
         <Fragment>
             <form onSubmit={onSubmit} className="mb-4">
                 <h3 className="my-4">Ajouter des photos</h3>
+                    <label htmlFor="customFile" className="mb-0">Photo</label>
                 <div className="mb-1 custom-file">
                     <input type="file" className="custom-file-input" id='customFile' onChange={onChange}/>
                     <label className="custom-file-label" htmlFor="customFile">{fileName}</label>

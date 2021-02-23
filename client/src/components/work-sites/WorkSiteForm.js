@@ -1,5 +1,7 @@
 import React, { useContext, useState,useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import FileUpload from '../layout/FileUpload';
 import AlertContext from '../../context/alert/alertContext';
 import WorkSiteContext from '../../context/worksite/workSiteContext';
@@ -8,7 +10,7 @@ const WorkSiteForm = () => {
     const imagesContext = useContext(ImagesContext);
     const alertContext = useContext(AlertContext);
     const workSiteContext = useContext(WorkSiteContext);
-    const { images } = imagesContext;
+    const { images,removeImages } = imagesContext;
     const { addWorkSite } = workSiteContext;
     const { setAlert } = alertContext;
     const [workSite,setWorkSite] = useState({
@@ -35,6 +37,7 @@ const WorkSiteForm = () => {
         }
         else{
             setAlert('Chantier ajoutée','success');
+            removeImages();
             addWorkSite(workSite);
             history.push('/admin-panel');
         }
@@ -52,7 +55,19 @@ const WorkSiteForm = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Chantier détails</label>
-                        <textarea className="form-control" name="description" type="text" value={description} placeholder="Chantier détails..." onChange={onChange} ></textarea>
+                        {/* <textarea className="form-control" name="description" type="text" value={description} placeholder="Chantier détails..." onChange={onChange} ></textarea> */}
+                        <CKEditor 
+                            editor={ ClassicEditor }
+                            onChange={(event,editor)=>{
+                                const data = editor.getData();
+                                setWorkSite({...workSite,description:data});                                
+                            }}
+                            config= {{
+                                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                                placeholder: 'Chantier détails...'
+                            }}
+                        />
+
                     </div>
                     
                     <div>

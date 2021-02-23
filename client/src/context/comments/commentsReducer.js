@@ -20,7 +20,7 @@ export default (state,action)=>{
         case DELETE_COMMENT:
             return {
                 ...state,
-                comments:state.comments.filter(comment => comment.id != action.payload)
+                comments:state.comments.filter(comment => comment._id != action.payload)
             }
         case CLEAR_COMMENTS:
             return {

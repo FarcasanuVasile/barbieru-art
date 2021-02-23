@@ -39,11 +39,16 @@ const CommentsState = props =>{
     }
     // Update Comment
     const updateComment = () =>{
-        
+        // Comments will be not updated
     }
     // Delete Comment
-    const deleteComment = () =>{
-        
+    const deleteComment = async (id) => {
+        try {
+            await axios.delete(`/api/worksite-comments/${id}`)
+            dispatch({type:DELETE_COMMENT,payload:id});
+        } catch (error) {
+            console.log(error);
+        }
     }
     const clearComments = () =>{
         dispatch({type:CLEAR_COMMENTS})
