@@ -2,15 +2,19 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 import MessageContext from '../../context/message/messageContext';
+import WorkSiteContext from '../../context/worksite/workSiteContext';
 const AdminPanel = () =>{
+    const workSiteContext = useContext(WorkSiteContext);
     const authContext = useContext(AuthContext);
     const messageContext = useContext(MessageContext);
+    const { clearCurrent }  = workSiteContext;
     const { user} = authContext;
     const { getMessages,messages} = messageContext;
     
     useEffect(()=>{
         getMessages();
-    },[getMessages]);
+        clearCurrent();
+    },[]);
     
     return <div>
         <div className="row">
@@ -48,6 +52,8 @@ const AdminPanel = () =>{
                 <h4><i className="fas fa-link"></i> Liens</h4>
                     <div className="border-top py-2">
                         <Link to='/admin-panel/messages'>Voir tout les messages</Link>
+                        <br />
+                        <Link to='/chantiers'>Voir tous les Chantiers</Link>
                         <br />
                         <Link to='/chantiers/ajouter-un-chantier'>Ajouter un Chantier</Link>
                     </div>

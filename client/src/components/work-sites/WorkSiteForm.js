@@ -10,8 +10,8 @@ const WorkSiteForm = () => {
     const imagesContext = useContext(ImagesContext);
     const alertContext = useContext(AlertContext);
     const workSiteContext = useContext(WorkSiteContext);
+    const { addWorkSite,clearCurrent,current,updateWorkSite } = workSiteContext;
     const { images,removeImages } = imagesContext;
-    const { addWorkSite } = workSiteContext;
     const { setAlert } = alertContext;
     const [workSite,setWorkSite] = useState({
         name:'',
@@ -21,11 +21,17 @@ const WorkSiteForm = () => {
     const history = useHistory();
     const { name, description,imagePaths } = workSite;
     useEffect(()=>{
-      setWorkSite({...workSite,imagePaths:images}); 
-    },[images]);
+        if(current !==null){
+            setWorkSite(current);
+        }
+        setWorkSite({...workSite,imagePaths:images});
+    },[current,images]);
     
     const onChange  = e => {
         setWorkSite({...workSite,[e.target.name]:e.target.value});
+    }
+    const onCancel = () => {
+        history.goBack();
     }
     const onSubmit = e => {
         e.preventDefault();
@@ -33,13 +39,22 @@ const WorkSiteForm = () => {
             setAlert("Chantier nom et chantier détails sont obligatoires.",'danger');
         }
         else if(imagePaths.length == 0){
-            setAlert("Pas des images ont ete charges",'warning')
+            setAlert("Pas des images ont ete charges",'warning');
+            console.log(workSite);
+        }
+        else if(current!=null){
+            console.log(workSite);
+            updateWorkSite(workSite);
+            setAlert('Chantier modifié','success');
+            history.goBack();
+            removeImages();
         }
         else{
             setAlert('Chantier ajoutée','success');
-            removeImages();
             addWorkSite(workSite);
             history.push('/admin-panel');
+            clearCurrent();
+            removeImages();
         }
     }
     
@@ -48,16 +63,17 @@ const WorkSiteForm = () => {
             <div className="col-md-6">
 
                 <form onSubmit={onSubmit}>
-                    <h1 className="mb-4">Ajouter un chantier</h1>
+                    <h1 className="mb-4">{current==null ?  'Ajouter un chantier' : 'Modifier un chantier'}</h1>
                     <div className="form-group">
                         <label htmlFor="name">Chantier nom</label>
                         <input className="form-control" name="name" type="text" value={name} placeholder="Chantier nom..." onChange={onChange} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Chantier détails</label>
-                        {/* <textarea className="form-control" name="description" type="text" value={description} placeholder="Chantier détails..." onChange={onChange} ></textarea> */}
                         <CKEditor 
                             editor={ ClassicEditor }
+                            data={ current!=null && `${current.description}`}
+                            
                             onChange={(event,editor)=>{
                                 const data = editor.getData();
                                 setWorkSite({...workSite,description:data});                                
@@ -71,7 +87,8 @@ const WorkSiteForm = () => {
                     </div>
                     
                     <div>
-                        <input type="submit" value="Ajouter" className="btn btn-primary"/>
+                        <input type="submit" value={current==null ? "Ajouter" : "Modifier"} className="btn btn-primary mr-1"/>
+                        { current && <button onClick={onCancel} className="btn btn-light">Anuler</button> }
                     </div>
                     
                 </form>

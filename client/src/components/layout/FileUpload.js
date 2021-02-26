@@ -1,14 +1,23 @@
-import React,{ Fragment,useState,useContext } from 'react';
-import {v4 as uuidv4 } from 'uuid';
+import React,{ Fragment,useState,useContext, useEffect } from 'react';
 import ImagesContext from '../../context/images/imagesContext';
 import AlertContext from '../../context/alert/alertContext';
+import WorkSiteContext from '../../context/worksite/workSiteContext';
+import ImagesPreview from '../images-preview/ImagesPreview';
 
 const FileUpload = () => {
     const imagesContext = useContext(ImagesContext);
     const alertContext = useContext(AlertContext);
+    const workSiteContext = useContext(WorkSiteContext);
+    const { current } = workSiteContext;
     const { setAlert } = alertContext;
-    const { addImage,images } = imagesContext;
-   
+    const { setImages,addImage } = imagesContext;
+    
+    useEffect(()=>{
+        if(current !== null){
+            setImages(current.imagePaths);
+        }
+    },[current])
+
     const [fileName,setFileName]=useState('Choisir Photo');
     const [file,setFile]=useState('');
     const onSubmit = e =>{
@@ -21,6 +30,7 @@ const FileUpload = () => {
             addImage(formData);
         }
     }
+    
     const onChange = e =>{
         setFile(e.target.files[0]);
         setFileName(e.target.files[0].name);
@@ -36,9 +46,8 @@ const FileUpload = () => {
                 </div>
                 <input className="mt-1" type="submit" value="Charger"/>
             </form>
-            <div>
-                { images.length >= 1 && <p>Les photos</p>  }
-                { images.length >= 1 && images.map(img => <img key={uuidv4()} src={img} className="w-25 mr-1" /> )}
+            <div className="images-preview-container">
+                <ImagesPreview />
             </div>
         </Fragment>
     )

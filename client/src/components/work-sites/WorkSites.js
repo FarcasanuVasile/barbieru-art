@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import WorkSiteContext from '../../context/worksite/workSiteContext';
 import WorkSiteItem from './WorkSiteItem';
-
 const WorkSites = () => {
     const workSiteContext = useContext(WorkSiteContext);
     const { getWorkSites,workSites } = workSiteContext;

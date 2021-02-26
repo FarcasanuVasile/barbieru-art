@@ -17,6 +17,22 @@ router.get('/', async (req,res) => {
         res.status(500).send('Server error');
     }
 });
+// @route     GET api/work-sites
+// @desc      Get work site by id
+// @access    Public
+
+router.get('/:id',async(req,res) => {
+    try {
+        let workSite = await WorkSite.findById(req.params.id);
+        if(!workSite){
+            res.status(404).json({msg:'Worksite not found'});
+        }
+        res.status(200).json(workSite);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route     POST  api/work-sites
 // @desc      Add new work site
@@ -52,7 +68,7 @@ router.put('/:id',auth,async(req,res) => {
     if(description) workSiteFields.description=description;
     if(imagePaths) workSiteFields.imagePaths=imagePaths;
     try {
-        let workSite = WorkSite.findById(req.params.id);
+        let workSite =await WorkSite.findById(req.params.id);
         if(!workSite){
             res.status(404).json({msg:'Worksite not found'});
         }

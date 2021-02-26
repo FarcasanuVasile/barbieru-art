@@ -19,9 +19,20 @@ const WorkSiteState = props =>{
             const res = await axios.get('/api/work-sites');
             dispatch({type:GET_WORKSITES,payload:res.data.data});
         } catch (error) {
-            
+            console.log(error.response.msg);
         }
     }
+    // Get Worksite
+
+    const getWorkSite = async id => {
+        try {
+            const res = await axios.get(`/api/work-sites/${id}`);
+            dispatch({type:SET_CURRENT,payload:res.data});
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
     // Add WorkSite
     const addWorkSite = async ws => {
         const config = {
@@ -36,6 +47,7 @@ const WorkSiteState = props =>{
             console.log(error.response.msg);
         }
     }
+    
     // Delete WorkSite
     const deleteWorkSite = async id =>{
         try {
@@ -46,13 +58,26 @@ const WorkSiteState = props =>{
         }
     }
     // Edit WorkSite
-
+    const updateWorkSite = async workSite =>{
+        const config = {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }
+        try {
+            const res = axios.put(`/api/work-sites/${workSite._id}`,workSite,config);
+            console.log(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     // Set Current
     const setCurrent = workSite =>{
         dispatch({type:SET_CURRENT,payload:workSite})
     }
     // Clear Current
     const clearCurrent = () =>{
+        
         dispatch({type:CLEAR_CURRENT})
     }
     return (
@@ -63,7 +88,9 @@ const WorkSiteState = props =>{
                 filtered:state.filtered,
                 error:state.error,
                 getWorkSites,
+                getWorkSite,
                 addWorkSite,
+                updateWorkSite,
                 deleteWorkSite,
                 setCurrent,
                 clearCurrent

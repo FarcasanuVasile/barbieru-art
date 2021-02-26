@@ -30,8 +30,8 @@ export const Routes = () => {
                 <Route exact path="/admin-panel/messages/edit" component={Contact}/>
                 <Route exact path="/chantiers" component={WorkSites}/>
                 <Route exact path="/chantier/:id" component={WorkSiteDetails}/>
-                <PrivateRoute exact path="/chantier/:id/modifier" component={WorkSiteForm}/>
                 <PrivateRoute exact path="/chantiers/ajouter-un-chantier" component={WorkSiteForm}/>
+                <PrivateRoute exact path="/chantier/modifier/:id" component={WorkSiteForm}/>
                 <PrivateRoute exact path="/admin-panel/messages" component={Messages}/>
                 <PrivateRoute exact path="/admin-panel" component={AdminPanel}/>
                 

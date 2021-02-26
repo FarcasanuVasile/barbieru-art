@@ -6,7 +6,8 @@ import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import Comments from '../comments/Comments';
 import { useHistory, useLocation } from 'react-router-dom';
-const WorkSiteDetails = () => {
+import Spinner from '../layout/Spinner';
+const WorkSiteDetails = props => {
     const location = useLocation();
     const history = useHistory();
     const authContext = useContext(AuthContext);
@@ -16,56 +17,56 @@ const WorkSiteDetails = () => {
     const { setAlert } = alertContext;
     const { isAuthenticated } = authContext;
     const { comments,getComments, addComment,clearComments } = commentsContext;
-    const { clearCurrent,current,deleteWorkSite } = workSiteContext;
+    const { clearCurrent,current,deleteWorkSite,getWorkSite } = workSiteContext;
     
-    const { _id,name,description,imagePaths } = current;
     const [comment,setComment] = useState({
         name:'',
         body:'',
         workSiteId:''
     });
+        useEffect(()=>{
+        const id = location.pathname.substr(10);
+        getWorkSite(id);
+        getComments(id);
+        setComment({...comment,workSiteId:id});
+    },[]);
     
     const onChange = e => {
-         setComment({...comment,[e.target.name]:e.target.value});
+        setComment({...comment,[e.target.name]:e.target.value});
     }
-    useEffect(()=>{
-        getComments(_id);
-        setComment({...comment,workSiteId:_id});
-        return ()=>{
-            console.log(location);
-            clearCurrent();
-            clearComments();
-        }
-    },[]);
     const onSubmit = (e) => {
         e.preventDefault();
         if(comment.name=='' || comment.body==''){
             setAlert('Tout les champs sont obligatoires.','warning')
         }else{
             
-        addComment(comment);
-    }
-    
-    setComment({
-        ...comment,
-        name:'',
-        body:''
-    })
+            addComment(comment);
+        }
+        
+        setComment({
+            ...comment,
+            name:'',
+            body:''
+        })
     }
     const onEdit = () => {
-        history.push(`/chantier/${_id}/modifier`);
+        history.push(`/chantier/modifier/${current._id}`);
     }
     const onDelete = () =>{
         if(window.confirm('Vous etes sur?')){
-            deleteWorkSite(_id);
+            deleteWorkSite(current._id);
             history.push('/chantiers');
             setAlert('Chantier supprimé!','warning')
         }
     }
+    if(current==null){
+        return <Spinner />
+    }
+    if(current!=null)
     return (
         <div>
             <div className="card mb-5">
-                <div className="card-header d-flex justify-content-between"> <h4 className="mb-0"> {current && name} </h4> 
+                <div className="card-header d-flex justify-content-between"> <h4 className="mb-0"> {current && current.name} </h4> 
                         <div>
                         { isAuthenticated && <span  className="ml-1  delete-button" onClick={onEdit}>
                             <i className="fas fa-edit"></i>
@@ -76,9 +77,9 @@ const WorkSiteDetails = () => {
                         </div>
                 </div>
                 <div className="card-body">
-                {current && <div className="card-text" dangerouslySetInnerHTML={{__html:description}}></div>}
+                {current && <div className="card-text" dangerouslySetInnerHTML={{__html:current.description}}></div>}
                     {
-                        imagePaths.map(image => (<div key={uuidv4()} className="text-center mb-4"><img src={image} alt="Chantier Image" className="img-fluid rounded" /> </div> ))
+                        current.imagePaths.map(image => (<div key={uuidv4()} className="text-center mb-4"><img src={image} alt="Chantier Image" className="img-fluid rounded" /> </div> ))
                     }
                 </div>
             </div>

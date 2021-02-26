@@ -3,10 +3,12 @@ import ImagesContext from './imagesContext';
 import imagesReducer from './imagesReducer';
 import axios from 'axios';
 
-import { ADD_IMAGE,CLEAR_IMAGES} from '../types';
+import { ADD_IMAGE,CLEAR_IMAGES,SET_IMAGES,REMOVE_IMAGE} from '../types';
 
 const ImagesState = props => {
-    const initialState = [];
+    const initialState = {
+        images:[]
+    };
     const [state,dispatch] = useReducer(imagesReducer,initialState);
 
     // ADD IMAGE
@@ -23,17 +25,24 @@ const ImagesState = props => {
         }
     }
     // Clear IMAGES
-    
+    const setImages  = (images) =>{
+        dispatch({type:SET_IMAGES,payload:images})
+    }
     const removeImages = () =>{
         dispatch({type:CLEAR_IMAGES});
+    }
+    const removeImage = (image) =>{
+        dispatch({type:REMOVE_IMAGE,payload:image})
     }
 
     return (
         <ImagesContext.Provider
         value={{
-            images:state,
+            images:state.images,
             addImage,
-            removeImages
+            removeImages,
+            removeImage,
+            setImages
             }}>
             {props.children}
         </ImagesContext.Provider>

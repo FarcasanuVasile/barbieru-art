@@ -9,12 +9,10 @@ const WorkSiteItem = ({workSite}) => {
     const workSiteContext = useContext(WorkSiteContext);
     const { setAlert } = alertContext;
     const { isAuthenticated } = authContext;
-    const { setCurrent,deleteWorkSite } = workSiteContext;
+    const { deleteWorkSite } = workSiteContext;
     const { _id,name,description,date } = workSite;
 
-    const onSetCurrent = () =>{
-        setCurrent(workSite);
-    }
+  
     const onDelete = () =>{
         if(window.confirm('Vous etes sur?')){
             deleteWorkSite(_id);
@@ -25,7 +23,7 @@ const WorkSiteItem = ({workSite}) => {
     return (
 
         <div>    
-    <Link to={`/chantier/${_id}`} onClick={onSetCurrent} className="list-group-item mb-2 list-group-item-action flex-column align-items-start">
+    <Link to={`/chantier/${_id}`} className="list-group-item mb-2 list-group-item-action flex-column align-items-start">
     
     <div className="d-flex w-100 justify-content-between">
       <h5 className="mb-1">{name}</h5>
