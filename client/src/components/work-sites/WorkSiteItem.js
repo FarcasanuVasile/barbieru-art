@@ -13,8 +13,9 @@ const WorkSiteItem = ({workSite}) => {
     const { _id,name,description,date } = workSite;
 
   
-    const onDelete = () =>{
+    const onDelete = (e) =>{
         if(window.confirm('Vous etes sur?')){
+            e.preventDefault();
             deleteWorkSite(_id);
             setAlert('Chantier supprimé!','warning')
         }

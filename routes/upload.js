@@ -13,7 +13,6 @@ router.post('/',auth, (req,res)=>{
     
     const ext = file.name.substr(file.name.length-4);
     file.name = rnd + ext;
-    // file.name= name;
 
     file.mv(`${__dirname}/../client/public/uploads/${file.name}`,err => {
         if(err){

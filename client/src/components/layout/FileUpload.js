@@ -28,6 +28,8 @@ const FileUpload = () => {
             const formData = new FormData();
             formData.append('file',file);
             addImage(formData);
+            setFile('');
+            setFileName('Choisir Photo');
         }
     }
     

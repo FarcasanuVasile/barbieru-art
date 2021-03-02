@@ -4,7 +4,14 @@ import AuthContext from './authContext';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthoken';
 import {
-    REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS,LOGOUT,CLEAR_ERRORS
+    REGISTER_FAIL,
+    REGISTER_SUCCESS,
+    USER_LOADED,
+    AUTH_ERROR,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGOUT,
+    CLEAR_ERRORS
 } from '../types';
 
 const AuthState = props => {
@@ -56,7 +63,6 @@ const AuthState = props => {
             dispatch({type:LOGIN_SUCCESS,payload:response.data});
             loadUser();
         } catch (err) {
-        
             dispatch({type:LOGIN_FAIL,payload:err.response.data.msg})
         }
     }
@@ -76,8 +82,8 @@ const AuthState = props => {
             isAuthenticated:state.isAuthenticated,
             loading:state.loading,
             error:state.error,
-            register,
             clearErrors,
+            register,
             loadUser,
             login,
             logout

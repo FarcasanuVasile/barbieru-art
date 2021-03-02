@@ -73,7 +73,7 @@ router.put('/:id',auth,async(req,res) => {
             res.status(404).json({msg:'Worksite not found'});
         }
         workSite = await WorkSite.findByIdAndUpdate(req.params.id, {$set:workSiteFields},{new:true} )
-        res.json({status:"Success",data:workSite});
+        res.json(workSite);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');

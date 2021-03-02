@@ -12,7 +12,9 @@ import {
     FILTER_MESSAGES,
     MESSAGE_ERROR,
     GET_MESSAGES,
-    CLEAR_MESSAGES } from '../types';
+    CLEAR_MESSAGES,
+    LOGOUT    
+} from '../types';
 
 const MessageState = props => {
     const initialState = {
@@ -28,7 +30,8 @@ const MessageState = props => {
             const res = await axios.get('/api/messages');
             dispatch({type:GET_MESSAGES,payload:res.data.data});
         } catch (error) {            
-            dispatch({type:MESSAGE_ERROR,payload:error.response.msg})
+            dispatch({type:MESSAGE_ERROR,payload:error.response.msg});
+            dispatch({type:LOGOUT});
         }
     }
     // Add Message 
@@ -52,7 +55,6 @@ const MessageState = props => {
             await axios.delete(`/api/messages/${id}`);
             dispatch({type: DELETE_MESSAGE,payload:id})
         } catch (error) {
-            console.log(error.response)
             dispatch({type:MESSAGE_ERROR,payload:error.response.msg})
         }
     }

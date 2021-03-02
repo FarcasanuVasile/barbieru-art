@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import WorkSiteContext from './workSiteContext';
 import workSiteReducer from './workSiteReducer';
-import { ADD_WORKSITE, GET_WORKSITES,SET_CURRENT,CLEAR_CURRENT, DELETE_WORKSITE } from '../types';
+import { ADD_WORKSITE, GET_WORKSITES,SET_CURRENT,CLEAR_CURRENT, DELETE_WORKSITE, UPDATE_WORKSITE } from '../types';
 
 const WorkSiteState = props =>{
     const initialState = {
@@ -65,8 +65,8 @@ const WorkSiteState = props =>{
             }
         }
         try {
-            const res = axios.put(`/api/work-sites/${workSite._id}`,workSite,config);
-            console.log(res.data);
+            const res = await axios.put(`/api/work-sites/${workSite._id}`,workSite,config);
+            dispatch({type:UPDATE_WORKSITE,payload:res.data});
         } catch (error) {
             console.log(error);
         }
@@ -77,7 +77,6 @@ const WorkSiteState = props =>{
     }
     // Clear Current
     const clearCurrent = () =>{
-        
         dispatch({type:CLEAR_CURRENT})
     }
     return (

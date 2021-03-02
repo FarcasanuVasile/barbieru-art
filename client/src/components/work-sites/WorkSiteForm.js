@@ -21,17 +21,16 @@ const WorkSiteForm = () => {
     const history = useHistory();
     const { name, description,imagePaths } = workSite;
     useEffect(()=>{
-        if(current !==null){
+        if(current !==null ){
             setWorkSite(current);
         }
-        setWorkSite({...workSite,imagePaths:images});
-    },[current,images]);
+        if(images.length != imagePaths.length){
+            setWorkSite({...workSite,imagePaths:images});
+        }
+    },[images]);
     
     const onChange  = e => {
         setWorkSite({...workSite,[e.target.name]:e.target.value});
-    }
-    const onCancel = () => {
-        history.goBack();
     }
     const onSubmit = e => {
         e.preventDefault();
@@ -43,11 +42,9 @@ const WorkSiteForm = () => {
             console.log(workSite);
         }
         else if(current!=null){
-            console.log(workSite);
             updateWorkSite(workSite);
             setAlert('Chantier modifié','success');
             history.goBack();
-            removeImages();
         }
         else{
             setAlert('Chantier ajoutée','success');
@@ -57,7 +54,9 @@ const WorkSiteForm = () => {
             removeImages();
         }
     }
-    
+    const onCancel = () => {
+        history.goBack();
+    }
     return (
         <div className="row">
             <div className="col-md-6">
