@@ -39,7 +39,6 @@ const WorkSiteForm = () => {
         }
         else if(imagePaths.length == 0){
             setAlert("Pas des images ont ete charges",'warning');
-            console.log(workSite);
         }
         else if(current!=null){
             updateWorkSite(workSite);
