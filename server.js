@@ -26,11 +26,14 @@ app.use('/api/work-sites', require('./routes/work-sites'));
 app.use('/api/worksite-comments', require('./routes/worksite-comments'));
 
 // Serve static assets in production
-if(process.env.NODE_ENV === 'production'){
+//if(process.env.NODE_ENV === 'production'){
+    console.log('Production');
     //Set static folder
-    app.use(express.static('client/build'));
-    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname,'client','build','index.html')));
-}
+    //app.use(express.static('./client/build'));
+    //app.get('*', (req,res) => res.sendFile(path.resolve(__dirname,'client','build','index.html')));
+    app.use(express.static(path.join(__dirname, "./client/build")));
+    app.get("/*", (req, res) => res.sendFile(path.join(__dirname, "./index.html")));
+//}
 
 
 const PORT = process.env.PORT || 5000;
