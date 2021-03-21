@@ -14,7 +14,7 @@ router.post('/',auth, (req,res)=>{
     const ext = file.name.substr(file.name.length-4);
     file.name = rnd + ext;
 
-    file.mv(`${__dirname}/../client/public/uploads/${file.name}`,err => {
+    file.mv(`${__dirname}/../client/build/uploads/${file.name}`,err => {
         if(err){
             console.error(err);
             return res.status(500).send(err);

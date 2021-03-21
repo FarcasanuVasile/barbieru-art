@@ -79,7 +79,7 @@ const WorkSiteDetails = props => {
                 <div className="card-body">
                 {current && <div className="card-text" dangerouslySetInnerHTML={{__html:current.description}}></div>}
                     {
-                        current.imagePaths.map(image => (<div key={uuidv4()} className="text-center mb-4"><img src={`../public${image}`} alt="Chantier Image" className="img-fluid rounded" /> </div> ))
+                        current.imagePaths.map(image => (<div key={uuidv4()} className="text-center mb-4"><img src={image} alt="Chantier Image" className="img-fluid rounded" /> </div> ))
                     }
                 </div>
             </div>
