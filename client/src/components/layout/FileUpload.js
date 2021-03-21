@@ -24,13 +24,16 @@ const FileUpload = () => {
         e.preventDefault();
         if(file===''){
             setAlert('Aucune photo sélectionnée!','warning');
-        }else{
+        }else if(file.type.substring(0,5)!="image"){
+            setAlert("C'est pas une photo.",'danger');
+        }
+        else{
             const formData = new FormData();
             formData.append('file',file);
             addImage(formData);
-            setFile('');
-            setFileName('Choisir Photo');
         }
+        setFile('');
+        setFileName('Choisir Photo');
     }
     
     const onChange = e =>{
