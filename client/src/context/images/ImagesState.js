@@ -19,6 +19,7 @@ const ImagesState = props => {
                     'Content-Type':'multipart/form-data'
                 }
             });
+            console.log(res);
             dispatch({type:ADD_IMAGE,payload:res.data.filePath});
         } catch (error) {
             console.error(error);
