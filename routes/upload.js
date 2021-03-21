@@ -11,7 +11,7 @@ router.post('/',auth, (req,res)=>{
     const file = req.files.file;
     const rnd = Math.random().toString().substr(7);
     
-    const ext = file.name.substr(file.name.length-4);
+    const ext = file.name.substr(file.name.length-5);
     file.name = rnd + ext;
 
     file.mv(`${__dirname}/../client/build/uploads/${file.name}`,err => {
