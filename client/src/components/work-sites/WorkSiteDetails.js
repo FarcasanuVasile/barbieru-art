@@ -18,17 +18,16 @@ const WorkSiteDetails = props => {
     const { isAuthenticated } = authContext;
     const { comments,getComments, addComment,clearComments } = commentsContext;
     const { clearCurrent,current,deleteWorkSite,getWorkSite } = workSiteContext;
-    
     const [comment,setComment] = useState({
         name:'',
         body:'',
         workSiteId:''
     });
-        useEffect(()=>{
+    useEffect(()=>{
         const id = location.pathname.substr(10);
         getWorkSite(id);
         getComments(id);
-        setComment({...comment,workSiteId:id});
+        setComment({...comment,workSiteId:id});   
     },[]);
     
     const onChange = e => {
@@ -39,15 +38,10 @@ const WorkSiteDetails = props => {
         if(comment.name=='' || comment.body==''){
             setAlert('Tout les champs sont obligatoires.','warning')
         }else{
-            
             addComment(comment);
-        }
-        
-        setComment({
-            ...comment,
-            name:'',
-            body:''
-        })
+            setComment({...comment,name:'',body:''});
+            console.log(comment);
+        }        
     }
     const onEdit = () => {
         history.push(`/chantier/modifier/${current._id}`);
@@ -59,6 +53,7 @@ const WorkSiteDetails = props => {
             setAlert('Chantier supprimé!','warning')
         }
     }
+    
     if(current==null){
         return <Spinner />
     }

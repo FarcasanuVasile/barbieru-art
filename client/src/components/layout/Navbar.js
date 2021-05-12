@@ -23,11 +23,20 @@ const Navbar = () => {
           Salut {user && user.name}
           </span>
         </li>
-        <li className="nav-item">
-                <Link className="nav-link" to="/admin-panel">Admin</Link>
+        <li className="nav-item ">
+                <Link className="nav-link" to="/">Accueil</Link>
             </li>
+        <li className="nav-item">
+                <Link className="nav-link" to="/chantiers">Chantiers</Link>
+        </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/admin-panel/messages">Messages</Link>
+        </li>
+        <li className="nav-item">
+                <Link className="nav-link" to="/contact">Contacter Nous</Link>
+        </li>
+        <li className="nav-item">
+                <Link className="nav-link" to="/admin-panel">Admin</Link>
         </li>
         <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i><span className="d-none d-sm-inline">Déconnection</span></a> </li>
         
@@ -35,32 +44,15 @@ const Navbar = () => {
     );
     const guestLinks = (
       <Fragment>
-        {/* {user && <li className="nav-item"><span className="nav-link">
-                Bon jour { user.name}!
-                </span>
-            </li>} */}
             <li className="nav-item ">
-                <Link className="nav-link" to="/">Home</Link>
+                <Link className="nav-link" to="/">Accueil</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/contact">Contact</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/admin-panel">Admin</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/admin-panel/messages">Messages</Link>
+                <Link className="nav-link" to="/contact">Contacter Nous</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/chantiers">Chantiers</Link>
             </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/creer-un-compte">S'Inscrire</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/connexion">Connexion</Link>
-            </li>
-            <li className="nav-item" onClick={onLogout}> <a className="nav-link" href="#!"><i className="fas fa-sign-out-alt mr-1"></i>Déconnection</a> </li>
       </Fragment>
     )
     return (
@@ -71,8 +63,8 @@ const Navbar = () => {
         </button>
         <div onClick={onClose} className="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
           <ul className="navbar-nav">
-              {/* {isAuthenticated ? authLinks : guestLinks}             */}
-              {guestLinks}
+              { isAuthenticated ? authLinks : guestLinks}   
+              
           </ul>
         </div>
       </nav>
